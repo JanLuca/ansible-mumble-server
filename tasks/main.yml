@@ -1,0 +1,42 @@
+---
+
+- name: Configure mumble-server/start_daemon
+  debconf:
+    name: 'mumble-server'
+    question: 'mumble-server/start_daemon'
+    vtype: 'boolean'
+    value: True
+
+- name: Configure mumble-server/use_capabilities
+  debconf:
+    name: 'mumble-server'
+    question: 'mumble-server/use_capabilities'
+    vtype: 'boolean'
+    value: True
+
+- name: Configure mumble-server/use_capabilities
+  debconf:
+    name: 'mumble-server'
+    question: 'mumble-server/password'
+    vtype: 'password'
+    value: '{{mumble_server_password}}'
+
+- name: Install mumble-server package
+  apt:
+    name: mumble-server
+    state: latest
+    update_cache: True
+
+- name: Set server password
+  lineinfile:
+    dest:  "/etc/mumble-server.ini"
+    line:  "serverpassword={{mumble_server_server_password}}"
+    regexp: "^serverpassword"
+  notify: reload mumble-server
+
+- name: Set server bandwidth
+  lineinfile:
+    dest:  "/etc/mumble-server.ini"
+    line:  "bandwidth={{mumble_server_bandwidth}}"
+    regexp: "^bandwidth"
+  notify: reload mumble-server
