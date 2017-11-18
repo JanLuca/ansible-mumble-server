@@ -14,7 +14,7 @@
     vtype: 'boolean'
     value: True
 
-- name: Configure mumble-server/use_capabilities
+- name: Configure mumble-server/password
   debconf:
     name: 'mumble-server'
     question: 'mumble-server/password'
