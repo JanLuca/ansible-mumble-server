@@ -32,11 +32,11 @@
     dest:  "/etc/mumble-server.ini"
     line:  "serverpassword={{mumble_server_server_password}}"
     regexp: "^serverpassword"
-  notify: reload mumble-server
+  notify: restart mumble-server
 
 - name: Set server bandwidth
   lineinfile:
     dest:  "/etc/mumble-server.ini"
     line:  "bandwidth={{mumble_server_bandwidth}}"
     regexp: "^bandwidth"
-  notify: reload mumble-server
+  notify: restart mumble-server
